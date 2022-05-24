@@ -1,0 +1,46 @@
+<?php
+
+/** @var \Mageinsight\Customeralert\Block\Alerts $block */
+?>
+<form class="form form-alerts-manage" method="post" id="form-validate">
+    <?= $block->getBlockHtml('formkey') ?>
+    <?php $isSubscribed = $block->getIsSubscribedForSales(); ?>
+    <fieldset class="fieldset">
+        <div class="field choice">
+            <label for="sales_alert" class="sales_alert">
+                <input type="checkbox" name="sales_alert" id="sales_alert" <?php if ($isSubscribed) : ?> checked="checked"<?php endif; ?> />
+                <span><?= $block->escapeHtml(__('Enable sales alert')) ?></span>
+            </label>
+        </div>
+        <p class="alert_description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+    require([
+        "jquery",
+        "mage/mage"
+    ],function($) {
+        $(document).ready(function() {
+            $('input[type=checkbox]').on('change', function () {
+                var serialized = $(this).map(function() {
+                    return { name: this.name, value: this.checked ? this.value : "false" };
+                });
+                $.ajax({
+                    url: "<?php /* @escapeNotVerified */ echo $block->getUrl('customeralert/manage/save'); ?>",
+                    data: serialized,
+                    type: 'POST',
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $('body').trigger('processStart');
+                    },
+                    success: function(response) {
+                        $('body').trigger('processStop');
+                    }
+                });
+            });
+        });
+    });
+</script>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Customer My Account (All Pages)" design_abstraction="custom">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Customer\Block\Account\SortLinkInterface" name="test-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">customeralert/manage</argument>
+                    <argument name="label" xsi:type="string">Manage Alerts</argument>
+                    <argument name="sortOrder" xsi:type="number">30</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>
